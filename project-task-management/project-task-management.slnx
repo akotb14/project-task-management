@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../project-task-management.Application/project-task-management.Application.csproj" />
+  <Project Path="../project-task-management.Domain/project-task-management.Domain.csproj" />
+  <Project Path="../project-task-management.Infrastructure/project-task-management.Infrastructure.csproj" />
+  <Project Path="project-task-management.csproj" />
+</Solution>

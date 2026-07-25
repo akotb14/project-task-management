@@ -1,0 +1,115 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using project_task_management.Application.Interface.Repository;
+using project_task_management.Infrastructure.Context;
+
+
+namespace project_task_management.Infrastructure.Repository
+{
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    {
+
+        protected readonly ApplicationDbContext _dbContext;
+
+        public GenericRepository(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public virtual async Task<T> AddAsync(T entity)
+        {
+            await _dbContext.Set<T>().AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+
+            return entity;
+        }
+        public virtual async Task<T> GetByIdAsync(int id)
+        {
+
+            return await _dbContext.Set<T>().FindAsync(id);
+        }
+
+        public IQueryable<T> GetTableAsTracking()
+        {
+            return _dbContext.Set<T>().AsQueryable();
+
+        }
+
+        public IQueryable<T> GetTableNoTracking()
+        {
+            return _dbContext.Set<T>().AsNoTracking().AsQueryable();
+        }
+
+        public virtual async Task<T> UpdateAsync(T entity)
+        {
+            _dbContext.Set<T>().Update(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
+        }
+
+        public virtual async Task<T> DeleteAsync(T entity)
+        {
+            _dbContext.Set<T>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+            return entity;
+        }
+
+        public virtual async Task AddRangeAsync(ICollection<T> entities)
+        {
+            await _dbContext.Set<T>().AddRangeAsync(entities);
+            await _dbContext.SaveChangesAsync();
+
+        }
+        public virtual async Task UpdateRangeAsync(ICollection<T> entities)
+        {
+            _dbContext.Set<T>().UpdateRange(entities);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public virtual async Task DeleteRangeAsync(ICollection<T> entities)
+        {
+            foreach (var entity in entities)
+            {
+                _dbContext.Entry(entity).State = EntityState.Deleted;
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public IDbContextTransaction BeginTransaction()
+        {
+            return _dbContext.Database.BeginTransaction();
+        }
+
+        public void Commit()
+        {
+            _dbContext.Database.CommitTransaction();
+
+        }
+
+        public void RollBack()
+        {
+            _dbContext.Database.RollbackTransaction();
+        }
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            return await _dbContext.Database.BeginTransactionAsync();
+        }
+
+        public async Task CommitAsync()
+        {
+            await _dbContext.Database.CommitTransactionAsync();
+        }
+
+        public async Task RollBackAsync()
+        {
+            await _dbContext.Database.RollbackTransactionAsync();
+        }
+
+    }
+}

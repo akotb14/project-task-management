@@ -1,0 +1,9 @@
+﻿namespace project_task_management.Domain.Exceptions
+{
+    public class NotFoundException : Exception
+    {
+        public NotFoundException(string? message) : base(message)
+        {
+        }
+    }
+}
