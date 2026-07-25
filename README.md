@@ -79,6 +79,29 @@ project-task-management.Infrastructure/           # Infrastructure layer
 
 ---
 
+## 📋 Domain Model
+
+Key enums used by the `Tasks` feature (`project-task-management.Domain/Enums`):
+
+```csharp
+public enum TaskPriorityEnum
+{
+    Low,
+    Medium,
+    High
+}
+
+public enum TaskStatusEnum
+{
+    Pending = 0,
+    InProgress = 1,
+    Completed = 3,
+    Cancelled = 4
+}
+```
+
+---
+
 ## 📡 API Endpoints
 
 ### Auth
@@ -99,10 +122,10 @@ project-task-management.Infrastructure/           # Infrastructure layer
 ### Tasks
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | Create | Create a new task under a project |
+| `POST` | Create | Create a new task under a project (accepts a `TaskPriorityEnum` value) |
 | `GET` | GetTaskbyProject | Get all tasks for a project |
 | `PUT` | UpdateTask | Update a task |
-| `PUT` | ChangeTaskStatus | Change a task's status |
+| `PUT` | ChangeTaskStatus | Change a task's status (accepts a `TaskStatusEnum` value) |
 | `DEL` | Delete | Delete a task |
 
 📚 **Full request/response documentation (Postman):**
