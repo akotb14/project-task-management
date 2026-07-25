@@ -11,7 +11,7 @@ A clean-architecture Web API for managing projects and tasks, built with **ASP.N
 - **Tasks** — create tasks under a project, list tasks by project, update tasks, and change task status
 - **CQRS** with **MediatR** — each use case is a discrete command/query handler under `Features`
 - **FluentValidation** — request validation wired in as a MediatR pipeline **Behavior**
-- **Global exception handling middleware** — catches unhandled exceptions and maps them to a consistent error response
+- **Global exception handling middleware** (Application layer) — catches unhandled exceptions and maps them to a consistent error response
 - **Custom response wrapper** — every endpoint returns a standardized result shape via `ResultHandler`
 - **Repository pattern with a Generic Repository** — shared CRUD implementation reused across entities, plus entity-specific repositories where needed
 - **EF Core Fluent API configuration** — entity mappings configured via `IEntityTypeConfiguration<T>` rather than data annotations, with **Migrations** for schema management
@@ -58,9 +58,9 @@ project-task-management.Infrastructure/           # Infrastructure layer
 | Layer | Responsibility |
 |---|---|
 | **Domain** | Core business entities, enums, exceptions — no external dependencies |
-| **Application** | CQRS commands/queries (Features), MediatR pipeline behaviors, FluentValidation rules, interfaces the outer layers implement |
+| **Application** | CQRS commands/queries (Features), MediatR pipeline behaviors, FluentValidation rules, global exception handling middleware, interfaces the outer layers implement |
 | **Infrastructure** | EF Core `DbContext` with Fluent API configurations, migrations, generic + specific repository implementations, JWT/service implementations |
-| **API** | Controllers, global exception middleware, request/response models, app startup and DI wiring |
+| **API** | Controllers, request/response models, app startup and DI wiring |
 
 ---
 
