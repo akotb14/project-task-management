@@ -86,9 +86,9 @@ Key enums used by the `Tasks` feature (`project-task-management.Domain/Enums`):
 ```csharp
 public enum TaskPriorityEnum
 {
-    Low,
-    Medium,
-    High
+    Low = 0,
+    Medium = 1,
+    High = 2
 }
 
 public enum TaskStatusEnum
