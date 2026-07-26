@@ -50,11 +50,9 @@ namespace project_task_management.Infrastructure.Service
             var claims = new List<Claim>()
             {
                 new Claim(nameof(UserClaimModel.Id), user.Id),
-                new Claim(ClaimTypes.Name , user.FirstName),
                 new Claim(ClaimTypes.NameIdentifier,user.UserName),
                 new Claim(ClaimTypes.Email, user.Email ),
                 new Claim(nameof(UserClaimModel.PhoneNumber), user.PhoneNumber),
-
             };
 
             var userClaims = await _userRepository.GetUserManager().GetClaimsAsync(user);

@@ -6,8 +6,8 @@ namespace project_task_management.Domain.Enums
 {
     public enum TaskPriorityEnum
     {
-        Low,
-        Medium,
-        High
+        Low = 0,
+        Medium= 1,
+        High = 2
     }
 }
