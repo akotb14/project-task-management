@@ -159,17 +159,33 @@ public enum TaskStatusEnum
 
    Update the connection string (and any other settings, e.g. JWT secrets) in `project-task-management/appsettings.json`.
 
-4. **Apply migrations**
+5. **Configure Application Settings**
+
+    Update the database connection string in `appsettings.json`.
+    
+    For security reasons, configure the JWT secret using **.NET User Secrets** during development:
+    
+    ```bash
+    dotnet user-secrets init
+    dotnet user-secrets set "JwtSettings:Secret" "your-super-secret-key"
+    ```
+    
+    Alternatively, configure it using an environment variable:
+    
+    ```text
+    JwtSettings__Secret=your-super-secret-key
+    ```
+6. **Apply migrations**
    ```bash
    dotnet ef database update --project project-task-management.Infrastructure --startup-project project-task-management
    ```
 
-5. **Run the API**
+7. **Run the API**
    ```bash
    dotnet run --project project-task-management
    ```
 
-6. **Explore the API**
+8. **Explore the API**
 
    Use the included `project-task-management.http` file, or import the Postman collections linked above, to try out the endpoints.
 
@@ -184,9 +200,6 @@ public enum TaskStatusEnum
 
 ---
 
-## 📄 License
-
-Specify your license here (e.g. MIT).
 
 ## 👤 Author
 
